@@ -1,0 +1,89 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+//-----------------------------------------------------------------------------
+
+struct point
+{
+    double x;
+    double y;
+};
+
+struct rect
+{
+    struct  point left_top;
+    struct  point right_bottom;
+};
+
+
+//-----------------------------------------------------------------------------
+
+struct point GetPoint();
+struct rect* GetRect(struct point point1, struct point point2);
+struct rect* Rotate(struct rect* rectangle);
+void Printer(struct rect* rectangle2);
+
+//-----------------------------------------------------------------------------
+
+int main()
+{
+    struct rect* rectangle1;
+    struct rect* rectangle2;
+
+    *rectangle1 = *GetRect(GetPoint(), GetPoint());
+    *rectangle2 = *Rotate(rectangle1);
+    Printer(rectangle2);
+    return 0;
+}
+
+//-----------------------------------------------------------------------------
+
+struct point GetPoint()
+{
+    struct point tmp;
+    scanf("%lg %lg", &tmp.x, &tmp.y);
+    return tmp;
+}
+
+
+//-----------------------------------------------------------------------------
+
+struct rect* GetRect(struct point point1, struct point point2)
+{
+    struct rect additional_rectangel;
+    additional_rectangel.left_top.x = 0;
+    additional_rectangel.left_top.y = 0;
+    additional_rectangel.right_bottom.x = 0;
+    additional_rectangel.right_bottom.y = 0;
+    additional_rectangel.left_top = point1;
+    additional_rectangel.right_bottom = point2;
+    return &additional_rectangel;
+}
+
+
+//-----------------------------------------------------------------------------
+
+struct rect* Rotate(struct rect* rectangle1)
+{
+   struct rect* moving;
+
+       (moving->left_top).x = (rectangle1->right_bottom).x;
+       (moving->left_top).y = (rectangle1->right_bottom).y + (rectangle1->right_bottom).x - (rectangle1->left_top).x;
+   (moving->right_bottom).x = (rectangle1->right_bottom).x + (rectangle1->left_top).y - (rectangle1->right_bottom).y;
+   (moving->right_bottom).y = (rectangle1->right_bottom).y;
+   return moving;
+}
+
+
+//-----------------------------------------------------------------------------
+
+void Printer(struct rect* rectangle2)
+{
+    printf("%lg\n", rectangle2->left_top.x);
+    printf("%lg\n", rectangle2->left_top.y);
+    printf("%lg\n", rectangle2->right_bottom.x);
+    printf("%lg\n", rectangle2->right_bottom.y);
+}
+
+
